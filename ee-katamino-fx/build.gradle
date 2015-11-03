@@ -1,0 +1,7 @@
+apply plugin: 'application'
+
+dependencies {
+  compile project(':ee-katamino-core')
+}
+
+mainClassName = 'ee.katamino.KataminoUi'

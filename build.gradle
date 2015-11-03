@@ -1,0 +1,52 @@
+allprojects {
+  group = 'ee.katamino'
+  version = '1.0-SNAPSHOT'
+}
+
+subprojects {
+  apply plugin: 'java'
+  apply plugin: 'groovy'
+  apply plugin: 'eclipse'
+  apply plugin: 'maven'
+  apply plugin: 'maven-publish'
+
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+
+  [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+  dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.5'
+    compile 'org.slf4j:slf4j-ext:1.7.5'
+    runtime 'ch.qos.logback:logback-classic:1.0.11'
+    testCompile 'junit:junit:4.+'
+  }
+
+  repositories {
+    mavenLocal()
+    mavenCentral()
+  }
+
+  jar {
+    manifest {
+      attributes 'Implementation-Title': 'Katamino Solver', 'Implementation-Version': version
+    }
+
+    task cleanAll << { task ->
+      [
+        'bin',
+        'target',
+        'build',
+        'dist',
+        'temp',
+        '.idea',
+        'dist.zip'
+      ].each { name ->
+        def file = new File("$task.project.name/$name")
+        if(file.exists()) if(file.isDirectory())file.deleteDir() else file.delete()
+      }
+    }
+  }
+
+  defaultTasks 'build', 'install'
+}
