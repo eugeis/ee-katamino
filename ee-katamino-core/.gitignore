@@ -1,8 +1,5 @@
 /bin
 /build
-/.gradle
-/.DS_Store
-/.classpath
-/.project
+/.gradle/
 /.idea/
 /.settings/
